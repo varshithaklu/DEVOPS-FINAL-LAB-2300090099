@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const BASE_URL = "http://localhost:30032/course";
+  const BASE_URL = "http://localhost:30033/course";
 
   const [courses, setCourses] = useState([]);
   const [newCourse, setNewCourse] = useState({
@@ -15,7 +15,7 @@ function App() {
   const [searchResult, setSearchResult] = useState(null);
 
   const loadCourses = async () => {
-    const res = await fetch(${BASE_URL}/viewall);
+    const res = await fetch(`${BASE_URL}/viewall`);
     const data = await res.json();
     setCourses(data);
   };
@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   const addCourse = async () => {
-    await fetch(${BASE_URL}/add, {
+    await fetch(`${BASE_URL}/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newCourse)
@@ -38,7 +38,7 @@ function App() {
 
   const searchCourse = async () => {
     try {
-      const res = await fetch(${BASE_URL}/search/${searchId});
+      const res = await fetch(`${BASE_URL}/search/${searchId}`);
 
       if (!res.ok) {
         setSearchResult("NOT_FOUND");
@@ -138,7 +138,7 @@ function App() {
             <h3>Search Result:</h3>
 
             {searchResult === "NOT_FOUND" ? (
-              <p className="error-text">⚠ Record Not Found</p>
+              <p className="error-text">⚠️ Record Not Found</p>
             ) : (
               <ul>
                 <li>ID: {searchResult.id}</li>
